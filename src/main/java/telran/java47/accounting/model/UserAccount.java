@@ -1,5 +1,6 @@
 package telran.java47.accounting.model;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +23,7 @@ public class UserAccount {
 	@Setter
 	String lastName;
 	Set<String> roles;
+	LocalDateTime passwordExpDate = LocalDateTime.now().plusDays(60);
 	
 	public UserAccount() {
 		roles = new HashSet<>();
@@ -33,6 +35,10 @@ public class UserAccount {
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
+	}
+	
+	public boolean checkPasswordDate() {
+		return !LocalDateTime.now().isAfter(passwordExpDate);
 	}
 
 	public boolean addRole(String role) {
